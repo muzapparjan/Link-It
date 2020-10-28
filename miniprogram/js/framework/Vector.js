@@ -18,19 +18,30 @@ export default class Vector {
     this.y = y;
   }
   /**
-   * 两个向量相加，并返回新向量
+   * 两个向量相加
    * @param {Vector} A 要相加的向量
    * @param {Vector} B 要相加的向量
+   * @returns {Vector} 返回新向量
    */
   static Add(A, B) {
     return new Vector(A.x + B.x, A.y + B.y);
   }
   /**
-   * 缩放向量，并返回新向量
+   * 缩放向量
    * @param {Vector} V 要缩放的向量
    * @param {Number} k 缩放系数
+   * @returns {Vector} 返回新向量
    */
   static Scale(V, k) {
     return new Vector(V.x * k, V.y * k);
+  }
+  /**
+   * 向量点积
+   * @param {Vector} A 要相乘的向量
+   * @param {Vector} B 要相乘的向量
+   * @returns {Number} 返回标量
+   */
+  static Dot(A, B) {
+    return A.x * B.x + A.y * B.y;
   }
 }
