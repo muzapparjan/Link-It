@@ -4,9 +4,14 @@
  * 2020-10-28
  */
 
-/**
- * 二维向量类
- */
+/** 零向量 */
+export const Zero = new Vector()
+/** X轴单位向量 */
+export const X = new Vector(1.0, 0.0)
+/** Y轴单位向量 */
+export const Y = new Vector(0.0, 1.0)
+
+/** 二维向量类 */
 export default class Vector {
   /**
    * 创建一个新的二维向量
