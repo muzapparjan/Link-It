@@ -4,6 +4,9 @@
  * 2020-10-28
  */
 
+import System from "./System"
+import Entity from "./Entity"
+
 /** 世界类 */
 export default class World {
   /**
@@ -31,6 +34,10 @@ export default class World {
   RemoveEntity(entity) {
     //TODO
   }
+  /**
+   * 添加新的系统
+   * @param {System} system 
+   */
   AddSystem(system) {
     if (system == null || system == undefined)
       return
@@ -41,6 +48,15 @@ export default class World {
     let targetIndex = this.Systems.indexOf(system)
   }
   FindEntityByID(id) {
+    //TODO
+  }
+  /**
+   * 接收消息并作出响应
+   * @param {Entity} entity 信息的发送者
+   * @param {String} keyWord 信息关键字
+   * @param {*} messages 信息主体
+   */
+  ReceiveMessage(entity, keyWord, ...messages) {
     //TODO
   }
 }
