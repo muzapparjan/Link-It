@@ -32,9 +32,15 @@ export default class World {
     //TODO
   }
   AddSystem(system) {
-    //TODO
+    if (system == null || system == undefined)
+      return
+    this.Systems.push(system)
+    this.Systems.sort((a, b) => a.Priority - b.Priority)
   }
   RemoveSystem(system) {
+    let targetIndex = this.Systems.indexOf(system)
+  }
+  FindEntityByID(id) {
     //TODO
   }
 }
