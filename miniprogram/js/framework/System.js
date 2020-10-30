@@ -30,6 +30,8 @@ export default class System {
    * @param {Number} deltaTime 更新间隔时长
    */
   Execute(deltaTime) {
+    if (this.ExecutionFunction == null)
+      return
     this.MatchedEntities.forEach(entity => {
       this.ExecutionFunction(entity, deltaTime)
     });
@@ -39,6 +41,15 @@ export default class System {
    * @param {Entity}} entity 要匹配的实体
    */
   TryMatch(entity) {
-    //TODO
+    if (this.MatchFunction == null)
+      return
+    let index = this.MatchedEntities.indexOf(entity)
+    if (index > -1) {
+      if (!this.MatchFunction(entity))
+        this.MatchedEntities.splice(index, 1)
+    } else {
+      if (this.MatchFunction(entity))
+        this.MatchedEntities.push(entity)
+    }
   }
 }

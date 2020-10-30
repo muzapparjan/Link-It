@@ -26,29 +26,71 @@ export default class World {
    * @param {Number} deltaTime 更新间隔时长
    */
   Update(deltaTime) {
-    //TODO
+    this.Systems.forEach(system => {
+      system.Execute(deltaTime)
+    });
   }
+  /**
+   * 添加一个新实体到世界
+   * @param {Entity} entity 要添加的实体
+   */
   AddEntity(entity) {
-    //TODO
+    if (entity == null || entity == undefined)
+      return
+    if (this.Entities.indexOf(entity) > -1)
+      return
+    entity.World = this
+    this.Entities.push(entity)
+    this.Systems.forEach(system => {
+      system.TryMatch(entity)
+    });
   }
+  /**
+   * 移除指定的实体
+   * @param {Entity} entity 要移除的实体
+   */
   RemoveEntity(entity) {
-    //TODO
+    if (entity == null || entity == undefined)
+      return
+    let index = this.Entities.indexOf(entity)
+    if (index > -1)
+      this.Entities.splice(index, 1)
+    this.Systems.forEach(system => {
+      index = system.MatchedEntities.indexOf(entity)
+      if (index > -1)
+        system.MatchedEntities.splice(index, 1)
+    });
   }
   /**
    * 添加新的系统
-   * @param {System} system 
+   * @param {System} system 要添加的系统
    */
   AddSystem(system) {
     if (system == null || system == undefined)
       return
+    if (this.Systems.indexOf(system) > -1)
+      return
     this.Systems.push(system)
     this.Systems.sort((a, b) => a.Priority - b.Priority)
+    this.Entities.forEach(entity => {
+      system.TryMatch(entity)
+    });
   }
+  /**
+   * 移除已有的系统
+   * @param {System} system 要移除的系统
+   */
   RemoveSystem(system) {
     let targetIndex = this.Systems.indexOf(system)
+    if (targetIndex > -1)
+      this.Systems.splice(targetIndex, 1)
   }
+  /**
+   * 根据ID查找实体
+   * @param {Number} id 要查找的实体唯一标识
+   */
   FindEntityByID(id) {
-    //TODO
+    return this.Entities.find(entity => entity.ID == id)
   }
   /**
    * 接收消息并作出响应
@@ -57,6 +99,19 @@ export default class World {
    * @param {*} messages 信息主体
    */
   ReceiveMessage(entity, keyWord, ...messages) {
-    //TODO
+    switch (keyWord) {
+      case "AddComponent":
+        this.Systems.forEach(system => {
+          system.TryMatch(entity)
+        });
+        break
+      case "RemoveComponent":
+        this.Systems.forEach(system => {
+          system.TryMatch(entity)
+        });
+        break
+      default:
+        break
+    }
   }
 }
