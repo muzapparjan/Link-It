@@ -10,6 +10,7 @@ import Vector from "../util/Vector"
 
 /** 变换系统 */
 export default class TransformSystem extends System {
+  /** 创建一个新的变换系统 */
   constructor() {
     super("TransformSystem", 0.0, TransformSystem.MatchFunction, TransformSystem.ExecutionFunction)
   }

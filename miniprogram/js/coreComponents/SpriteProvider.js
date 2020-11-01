@@ -6,6 +6,7 @@
 
 import Component from "../framework/Component"
 
+/** 图片提供者组件 */
 export default class SpriteProvider extends Component {
   constructor() {
     super("SpriteProvider", true)

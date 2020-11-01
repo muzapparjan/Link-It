@@ -6,9 +6,7 @@
 
 import Component from "../framework/Component"
 
-/**
- * 图片渲染组件
- */
+/** 图片渲染组件 */
 export default class SpriteRenderer extends Component {
   /**
    * 创建一个新的图片渲染组件
