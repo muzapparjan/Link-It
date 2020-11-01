@@ -4,8 +4,8 @@
  * 2020-10-28
  */
 
-import Component from "./Component.js"
-import World from "./World.js";
+import Component from "./Component"
+import World from "./World";
 
 /** 索引池 */
 let IDPool = 0
@@ -75,5 +75,27 @@ export default class Entity {
       this.Components.splice(targetIndex, 1)
       this.World.ReceiveMessage(this, "RemoveComponent", targetComponent)
     }
+  }
+  /**
+   * 检测是否包含指定名称的组件
+   * @param {String} componentName 要查询的组件名
+   * @returns {Boolean} 实体是否包含该名称的组件
+   */
+  CheckComponentByName(componentName) {
+    for (let i = 0; i < this.Components.length; i++)
+      if (this.Components[i].Name == componentName)
+        return true
+    return false
+  }
+  /**
+   * 通过组件名查找并获取组件
+   * @param {String} componentName 要获取的组件名
+   * @returns {Component} 获取到的组件
+   */
+  GetComponentByName(componentName) {
+    for (let i = 0; i < this.Components.length; i++)
+      if (this.Components[i].Name == componentName)
+        return this.Components[i]
+    return null
   }
 }

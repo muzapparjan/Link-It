@@ -24,6 +24,8 @@ export default class System {
     this.ExecutionFunction = executionFunction
     /** 已匹配的实体列表 */
     this.MatchedEntities = new Array()
+    /** 命令缓冲 */
+    this.CommandBuffer = new Array()
   }
   /**
    * 执行系统规则，迭代更新
@@ -34,7 +36,11 @@ export default class System {
       return
     this.MatchedEntities.forEach(entity => {
       this.ExecutionFunction(entity, deltaTime)
-    });
+    })
+    this.CommandBuffer.forEach(command => {
+      command()
+    })
+    this.CommandBuffer.length = 0
   }
   /**
    * 尝试匹配实体到规则
