@@ -10,6 +10,7 @@ import Component from "../framework/Component"
 export default class SpriteProvider extends Component {
   constructor() {
     super("SpriteProvider", true)
-    //TODO
+    this.SpriteList = new Array()
+    this.TargetSpriteIndex = 0
   }
 }

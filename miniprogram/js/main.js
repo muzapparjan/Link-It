@@ -1,9 +1,12 @@
+import TestWorld from "./worlds/TestWorld"
+
 const canvas = wx.createCanvas()
-let context = canvas.getContext('2d')
+export const context = canvas.getContext('2d')
 
 export default class Main {
   constructor() {
     this.Worlds = new Array()
+    this.Worlds.push(new TestWorld())
     requestAnimationFrame(this.AnimationLoop.bind(this))
   }
   AnimationLoop(){

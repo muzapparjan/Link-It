@@ -4,13 +4,6 @@
  * 2020-10-28
  */
 
-/** 零向量 */
-export const Zero = new Vector()
-/** X轴单位向量 */
-export const X = new Vector(1.0, 0.0)
-/** Y轴单位向量 */
-export const Y = new Vector(0.0, 1.0)
-
 /** 二维向量类 */
 export default class Vector {
   /**
@@ -50,3 +43,10 @@ export default class Vector {
     return A.x * B.x + A.y * B.y;
   }
 }
+
+/** 零向量 */
+export const Zero = new Vector()
+/** X轴单位向量 */
+export const X = new Vector(1.0, 0.0)
+/** Y轴单位向量 */
+export const Y = new Vector(0.0, 1.0)

@@ -31,6 +31,18 @@ export default class World {
     });
   }
   /**
+   * 创建一个新的空白实体
+   * @returns {Entity} 新的空白实体
+   */
+  CreateEntity(){
+    let entity = new Entity(this)
+    this.Entities.push(entity)
+    this.Systems.forEach(system => {
+      system.TryMatch(entity)
+    });
+    return entity
+  }
+  /**
    * 添加一个新实体到世界
    * @param {Entity} entity 要添加的实体
    */

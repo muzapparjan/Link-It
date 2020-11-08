@@ -35,7 +35,7 @@ export default class TransformSystem extends System {
     transform.Rotation = transform.Rotation + transformer.Rotate
     transform.Scale = new Vector(transform.Scale.x * transformer.Scale.x, transform.Scale.y * transformer.Scale.y)
     transform.Pivot = Vector.Add(transform.Pivot, transformer.MovePivot)
-    this.CommandBuffer.Add(() => {
+    this.CommandBuffer.push(() => {
       entity.RemoveComponent(transformer)
     })
   }
