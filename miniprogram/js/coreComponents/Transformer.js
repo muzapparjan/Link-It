@@ -18,9 +18,13 @@ export default class Transformer extends Component {
    */
   constructor(move = new Vector(), rotate = 0.0, scale = new Vector(1.0, 1.0), movePivot = new Vector()) {
     super("Transformer", false)
+    /** 相对移动距离 */
     this.Move = move
+    /** 相对旋转角度 */
     this.Rotate = rotate
+    /** 相对缩放系数 */
     this.Scale = scale
+    /** 相对锚点移动距离 */
     this.MovePivot = movePivot
   }
 }

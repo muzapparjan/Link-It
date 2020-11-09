@@ -21,7 +21,7 @@ export default class ResourceLoaderSystem extends System {
    * @returns {Boolean} 是否匹配成功
    */
   static MatchFunction(entity) {
-    return entity.CheckComponentByName("ResourceLoader") && entity.CheckComponentByName("ResourcePool")
+    return entity.CheckComponentByName("ResourceLoader")
   }
   /**
    * 系统规则：根据资源加载器的数据加载资源
@@ -30,11 +30,14 @@ export default class ResourceLoaderSystem extends System {
    */
   static ExecutionFunction(entity, deltaTime) {
     let resourceLoader = entity.GetComponentByName("ResourceLoader")
-    let resourcePool = entity.GetComponentByName("ResourcePool")
-    if (resourceLoader == null || resourceLoader == undefined)
+
+    let resourcePoolEntity = entity.World.FindEntityByRequiredComponentName("ResourcePool")
+    if (resourcePoolEntity == null || resourcePoolEntity == undefined)
       return
+    let resourcePool = resourcePoolEntity.GetComponentByName("ResourcePool")
     if (resourcePool == null || resourcePool == undefined)
       return
+
     resourceLoader.TexturePathList.forEach(path => {
       for (let i = 0; i < resourcePool.TexturePool.length; i++)
         if (resourcePool.TexturePool[i].Path == path)
@@ -42,6 +45,7 @@ export default class ResourceLoaderSystem extends System {
       resourcePool.TexturePool.push(new Texture(path))
     });
     resourceLoader.TexturePathList.length = 0
+
     resourceLoader.AudioPathList.forEach(path => {
       for (let i = 0; i < resourcePool.AudioPool.length; i++)
         if (resourcePool.AudioPool[i].Path == path)
@@ -49,5 +53,9 @@ export default class ResourceLoaderSystem extends System {
       resourcePool.AudioPool.push(new AudioClip(path))
     });
     resourceLoader.AudioPathList.length = 0
+
+    this.CommandBuffer.push(() => {
+      entity.RemoveComponent(resourceLoader)
+    })
   }
 }

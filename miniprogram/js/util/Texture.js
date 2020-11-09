@@ -20,8 +20,8 @@ export default class Texture {
     /** 源图片 */
     this.Image = wx.createImage()
     this.Image.src = path
-    this.Image.onload = this.OnLoad
-    this.Image.onerror = this.OnError
+    this.Image.onload = this.OnLoad.bind(this)
+    this.Image.onerror = this.OnError.bind(this)
   }
   OnLoad() {
     this.Loaded = true

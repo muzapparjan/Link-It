@@ -8,6 +8,7 @@ import Component from "../framework/Component"
 
 /** 资源池 */
 export default class ResourcePool extends Component {
+  /** 创建一个新的资源池 */
   constructor() {
     super("ResourcePool", true)
     /** 贴图池 */
