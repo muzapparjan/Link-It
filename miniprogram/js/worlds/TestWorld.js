@@ -53,13 +53,13 @@ export default class TestWorld extends World {
 
     /** 组件与系统测试员 */
     let testEntity = this.CreateEntity()
-    testEntity.AddComponent(new Transform(new Vector(100,100),0,new Vector(1,1),new Vector(0.5,0.5)))
+    testEntity.AddComponent(new Transform(new Vector(100,100),0,new Vector(100,100),new Vector(0.5,0.5)))
     testEntity.AddComponent(new SpriteRenderer(true,1.0,1.0))
     testEntity.AddComponent(new SpriteProvider())
     testEntity.AddComponent(new SpriteRequest("images/Test.png",new Vector(144,72),new Vector(72,72),true))
 
     let testEntity2  = this.CreateEntity()
-    testEntity2.AddComponent(new Transform(new Vector(100,100),0,new Vector(1,1),new Vector(0.5,0.5)))
+    testEntity2.AddComponent(new Transform(new Vector(0,0),0,new Vector(200,200),new Vector(0,0)))
     testEntity2.AddComponent(new SpriteRenderer(true,1.0,0.0))
     testEntity2.AddComponent(new SpriteProvider())
     testEntity2.AddComponent(new SpriteRequest("images/Test.png",new Vector(0,72),new Vector(72,72),true))

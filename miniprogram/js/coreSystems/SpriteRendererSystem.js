@@ -49,14 +49,9 @@ export default class SpriteRendererSystem extends System {
       return
     GameGlobal.Context.save()
     GameGlobal.Context.globalAlpha = spriteRenderer.Transparency
-
-    let finalSize = new Vector(targetSprite.ClipSize.x*transform.Scale.x,targetSprite.ClipSize.y*transform.Scale.y)
-
-    let deltaV = new Vector(-finalSize.x* transform.Pivot.x,-finalSize.y* transform.Pivot.y)
+    let deltaV = new Vector(-transform.Scale.x*transform.Pivot.x,-transform.Scale.y*transform.Pivot.y)
     GameGlobal.Context.translate(deltaV.x,deltaV.y)
-
-    GameGlobal.Context.drawImage(targetTexture.Image,targetSprite.ClipStartPos.x,targetSprite.ClipStartPos.y,targetSprite.ClipSize.x,targetSprite.ClipSize.y,transform.Position.x,transform.Position.y,finalSize.x,finalSize.y)
-
+    GameGlobal.Context.drawImage(targetTexture.Image,targetSprite.ClipStartPos.x,targetSprite.ClipStartPos.y,targetSprite.ClipSize.x,targetSprite.ClipSize.y,transform.Position.x,transform.Position.y,transform.Scale.x,transform.Scale.y)
     GameGlobal.Context.restore()
   }
   /**
