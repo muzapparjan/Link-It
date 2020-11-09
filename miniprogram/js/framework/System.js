@@ -12,8 +12,10 @@ export default class System {
    * @param {Number} priority 优先级
    * @param {Function} matchFunction 匹配函数
    * @param {Function} executionFunction 规则函数
+   * @param {Boolean} synchronous 是否同步迭代
+   * @param {Function} sortMethod 同步迭代前的排序方法
    */
-  constructor(name, priority = 0.0, matchFunction = null, executionFunction = null) {
+  constructor(name, priority = 0.0, matchFunction = null, executionFunction = null, synchronous = false, sortMethod = null) {
     /** 系统名 */
     this.Name = name
     /** 系统优先级 */
@@ -26,6 +28,10 @@ export default class System {
     this.MatchedEntities = new Array()
     /** 命令缓冲 */
     this.CommandBuffer = new Array()
+    /** 是否同步有序迭代 */
+    this.Synchronous = synchronous
+    /** 同步更新前的排序方法 */
+    this.SortMethod = sortMethod
   }
   /**
    * 执行系统规则，迭代更新
@@ -34,9 +40,17 @@ export default class System {
   Execute(deltaTime) {
     if (this.ExecutionFunction == null)
       return
-    this.MatchedEntities.forEach(entity => {
-      this.ExecutionFunction(entity, deltaTime)
-    })
+    if (this.Synchronous) {
+      if (this.SortMethod != null && this.SortMethod != undefined)
+        this.MatchedEntities.sort(this.SortMethod)
+      for (let i = 0; i < this.MatchedEntities.length; i++)
+        this.ExecutionFunction(this.MatchedEntities[i], deltaTime)
+    }
+    else {
+      this.MatchedEntities.forEach(entity => {
+        this.ExecutionFunction(entity, deltaTime)
+      })
+    }
     this.CommandBuffer.forEach(command => {
       command()
     })

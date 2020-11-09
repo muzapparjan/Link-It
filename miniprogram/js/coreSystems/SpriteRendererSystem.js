@@ -11,7 +11,7 @@ import Vector from "../util/Vector"
 export default class SpriteRendererSystem extends System {
   /** 创建一个新的图片渲染系统 */
   constructor() {
-    super("SpriteRendererSystem", -10.0, SpriteRendererSystem.MatchFunction, SpriteRendererSystem.ExecutionFunction)
+    super("SpriteRendererSystem", -10.0, SpriteRendererSystem.MatchFunction, SpriteRendererSystem.ExecutionFunction,true,SpriteRendererSystem.SortFunction)
   }
   /**
    * 尝试匹配实体
@@ -58,5 +58,15 @@ export default class SpriteRendererSystem extends System {
     GameGlobal.Context.drawImage(targetTexture.Image,targetSprite.ClipStartPos.x,targetSprite.ClipStartPos.y,targetSprite.ClipSize.x,targetSprite.ClipSize.y,transform.Position.x,transform.Position.y,finalSize.x,finalSize.y)
 
     GameGlobal.Context.restore()
+  }
+  /**
+   * 同步迭代前的排序规则
+   * @param {Entity} entityA 实体A
+   * @param {Entity} entityB 实体B
+   */
+  static SortFunction(entityA,entityB){
+    let spriteRendererA = entityA.GetComponentByName("SpriteRenderer")
+    let spriteRendererB = entityB.GetComponentByName("SpriteRenderer")
+    return spriteRendererA.Layer - spriteRendererB.Layer
   }
 }
