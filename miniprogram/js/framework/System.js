@@ -15,7 +15,7 @@ export default class System {
    * @param {Boolean} synchronous 是否同步迭代
    * @param {Function} sortMethod 同步迭代前的排序方法
    */
-  constructor(name, priority = 0.0, matchFunction = null, executionFunction = null, synchronous = false, sortMethod = null) {
+  constructor(name, priority = 0.0, matchFunction = null, executionFunction = null, synchronous = false, sortMethod = null, handleMessage = false, messageMatchFunction = null, onEntityAddComponent = null, onEntityRemoveComponent = null) {
     /** 系统名 */
     this.Name = name
     /** 系统优先级 */
@@ -32,6 +32,14 @@ export default class System {
     this.Synchronous = synchronous
     /** 同步更新前的排序方法 */
     this.SortMethod = sortMethod
+    /** 是否接收并处理消息 */
+    this.HandleMessage = handleMessage
+    /** 消息匹配函数 */
+    this.MessageMatchFunction = messageMatchFunction
+    /** 实体添加组件消息回调 */
+    this.OnEntityAddComponent = onEntityAddComponent
+    /** 实体移除组件消息回调 */
+    this.OnEntityRemoveComponent = onEntityRemoveComponent
   }
   /**
    * 执行系统规则，迭代更新
@@ -70,6 +78,26 @@ export default class System {
     } else {
       if (this.MatchFunction(entity))
         this.MatchedEntities.push(entity)
+    }
+  }
+  /**
+ * 接收消息并作出响应
+ * @param {Entity} entity 信息的发送者
+ * @param {String} keyWord 信息关键字
+ * @param {*} messages 信息主体
+ */
+  ReceiveMessage(entity, keyWord, ...messages) {
+    switch (keyWord) {
+      case "AddComponent":
+        if (this.OnEntityAddComponent != null && this.OnEntityAddComponent != undefined)
+          this.OnEntityAddComponent(entity, messages[0])
+        break
+      case "RemoveComponent":
+        if (this.OnEntityRemoveComponent != null && this.OnEntityRemoveComponent != undefined)
+          this.OnEntityRemoveComponent(entity, messages[0])
+        break
+      default:
+        break
     }
   }
 }

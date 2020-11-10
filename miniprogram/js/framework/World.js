@@ -125,19 +125,12 @@ export default class World {
    * @param {*} messages 信息主体
    */
   ReceiveMessage(entity, keyWord, ...messages) {
-    switch (keyWord) {
-      case "AddComponent":
-        this.Systems.forEach(system => {
-          system.TryMatch(entity)
-        });
-        break
-      case "RemoveComponent":
-        this.Systems.forEach(system => {
-          system.TryMatch(entity)
-        });
-        break
-      default:
-        break
-    }
+    this.Systems.forEach(system => {
+      if (system.HandleMessage) {
+        if (system.MessageMatchFunction == null || system.MessageMatchFunction == undefined || system.MessageMatchFunction(entity, keyWord, ...messages))
+          system.ReceiveMessage(entity, keyWord, ...messages)
+      }
+      system.TryMatch(entity)
+    });
   }
 }
