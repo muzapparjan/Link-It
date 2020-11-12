@@ -16,8 +16,8 @@ export default class Main {
   /** 初始化 */
   Initialize() {
     this.InitializeAnimationLoop()
-    this.InitializeWorlds()
     this.InitializeInputHandlers()
+    this.InitializeWorlds()
   }
   /** 启动 */
   Startup() {
@@ -35,52 +35,53 @@ export default class Main {
   }
   /** 初始化输入处理器 */
   InitializeInputHandlers() {
-    GameGlobal.OnTouchStartCallbacks = new Array()
-    GameGlobal.OnTouchMoveCallbacks = new Array()
-    GameGlobal.OnTouchEndCallbacks = new Array()
-    GameGlobal.OnTouchCancelCallbacks = new Array()
-    GameGlobal.OffTouchStartCallbacks = new Array()
-    GameGlobal.OffTouchMoveCallbacks = new Array()
-    GameGlobal.OffTouchEndCallbacks = new Array()
-    GameGlobal.OffTouchCancelCallbacks = new Array()
+    GameGlobal.TouchEventHandlers = new Array()
     wx.onTouchStart((touches, changedTouches, timeStamp) => {
-      GameGlobal.OnTouchStartCallbacks.forEach(callback => {
-        callback(touches, changedTouches, timeStamp)
+      GameGlobal.TouchEventHandlers.forEach(handler => {
+        if (handler.OnTouchStart != null && handler.OnTouchStart != undefined)
+              handler.OnTouchStart(touches, changedTouches, timeStamp)
       });
     })
     wx.onTouchMove((touches, changedTouches, timeStamp) => {
-      GameGlobal.OnTouchMoveCallbacks.forEach(callback => {
-        callback(touches, changedTouches, timeStamp)
+      GameGlobal.TouchEventHandlers.forEach(handler => {
+        if (handler.OnTouchMove != null && handler.OnTouchMove != undefined)
+          handler.OnTouchMove(touches, changedTouches, timeStamp)
       });
     })
     wx.onTouchEnd((touches, changedTouches, timeStamp) => {
-      GameGlobal.OnTouchEndCallbacks.forEach(callback => {
-        callback(touches, changedTouches, timeStamp)
+      GameGlobal.TouchEventHandlers.forEach(handler => {
+        if (handler.OnTouchEnd != null && handler.OnTouchEnd != undefined)
+          handler.OnTouchEnd(touches, changedTouches, timeStamp)
       });
     })
     wx.onTouchCancel((touches, changedTouches, timeStamp) => {
-      GameGlobal.OnTouchCancelCallbacks.forEach(callback => {
-        callback(touches, changedTouches, timeStamp)
+      GameGlobal.TouchEventHandlers.forEach(handler => {
+        if (handler.OnTouchCancel != null && handler.OnTouchCancel != undefined)
+          handler.OnTouchCancel(touches, changedTouches, timeStamp)
       });
     })
     wx.offTouchStart((touches, changedTouches, timeStamp) => {
-      GameGlobal.OffTouchStartCallbacks.forEach(callback => {
-        callback(touches, changedTouches, timeStamp)
+      GameGlobal.TouchEventHandlers.forEach(handler => {
+        if (handler.OffTouchStart != null && handler.OffTouchStart != undefined)
+          handler.OffTouchStart(touches, changedTouches, timeStamp)
       });
     })
     wx.offTouchMove((touches, changedTouches, timeStamp) => {
-      GameGlobal.OffTouchMoveCallbacks.forEach(callback => {
-        callback(touches, changedTouches, timeStamp)
+      GameGlobal.TouchEventHandlers.forEach(handler => {
+        if (handler.OffTouchMove != null && handler.OffTouchMove != undefined)
+          handler.OffTouchMove(touches, changedTouches, timeStamp)
       });
     })
     wx.offTouchEnd((touches, changedTouches, timeStamp) => {
-      GameGlobal.OffTouchEndCallbacks.forEach(callback => {
-        callback(touches, changedTouches, timeStamp)
+      GameGlobal.TouchEventHandlers.forEach(handler => {
+        if (handler.OffTouchEnd != null && handler.OffTouchEnd != undefined)
+          handler.OffTouchEnd(touches, changedTouches, timeStamp)
       });
     })
     wx.offTouchCancel((touches, changedTouches, timeStamp) => {
-      GameGlobal.OffTouchCancelCallbacks.forEach(callback => {
-        callback(touches, changedTouches, timeStamp)
+      GameGlobal.TouchEventHandlers.forEach(handler => {
+        if (handler.OffTouchCancel != null && handler.OffTouchCancel != undefined)
+          handler.OffTouchCancel(touches, changedTouches, timeStamp)
       });
     })
   }

@@ -20,9 +20,8 @@ export default class TouchEventHandler extends Component {
    * @param {Function} offTouchEnd 取消监听触摸结束事件回调
    * @param {Function} offTouchCancel 取消监听触点失效事件灰陶
    */
-  constructor(enabled = true, onTouchStart = null, onTouchMove = null, onTouchEnd = null, onTouchCancel = null, offTouchStart = null, offTouchMove = null, offTouchEnd = null, offTouchCancel = null) {
+  constructor(onTouchStart = null, onTouchMove = null, onTouchEnd = null, onTouchCancel = null, offTouchStart = null, offTouchMove = null, offTouchEnd = null, offTouchCancel = null) {
     super("TouchEventHandler", true)
-    this.Enabled = enabled
     this.OnTouchStart = onTouchStart
     this.OnTouchMove = onTouchMove
     this.OnTouchEnd = onTouchEnd

@@ -19,6 +19,8 @@ import SpriteRequesterSystem from "../coreSystems/SpriteRequesterSystem"
 import SpriteRequest from "../coreComponents/SpriteRequest"
 import Vector from "../util/Vector"
 import Transformer from "../coreComponents/Transformer"
+import TouchEventHandler from "../coreComponents/TouchEventHandler"
+import TouchEventHandlerSystem from "../coreSystems/TouchEventHandlerSystem"
 
 /** 测试世界 */
 export default class TestWorld extends World {
@@ -29,12 +31,13 @@ export default class TestWorld extends World {
     this.InitializeEntities()
   }
   /** 初始化默认系统 */
-  InitializeSystems(){
+  InitializeSystems() {
     /** 核心系统 */
     this.AddSystem(new TransformSystem())
     this.AddSystem(new ResourceLoaderSystem())
     this.AddSystem(new SpriteRendererSystem())
     this.AddSystem(new SpriteRequesterSystem())
+    this.AddSystem(new TouchEventHandlerSystem())
 
     /** 逻辑系统 */
 
@@ -42,7 +45,7 @@ export default class TestWorld extends World {
     this.AddSystem(new TestLoggerSystem())
   }
   /** 初始化默认实体 */
-  InitializeEntities(){
+  InitializeEntities() {
     /** 资源持有者 */
     let resourceEntity = this.CreateEntity()
     resourceEntity.AddComponent(new ResourcePool())
@@ -51,18 +54,23 @@ export default class TestWorld extends World {
     resourceLoader.TexturePathList.push("images/dududu.png")
     resourceEntity.AddComponent(resourceLoader)
 
-    /** 组件与系统测试员 */
+    /** 1号组件与系统测试员 */
     let testEntity = this.CreateEntity()
-    testEntity.AddComponent(new Transform(new Vector(100,100),0,new Vector(100,100),new Vector(0.5,0.5)))
-    testEntity.AddComponent(new SpriteRenderer(true,1.0,1.0))
+    testEntity.AddComponent(new Transform(new Vector(100, 100), 0, new Vector(100, 100), new Vector(0.5, 0.5)))
+    testEntity.AddComponent(new SpriteRenderer(true, 1.0, 1.0))
     testEntity.AddComponent(new SpriteProvider())
-    testEntity.AddComponent(new SpriteRequest("images/Test.png",new Vector(144,72),new Vector(72,72),true))
+    testEntity.AddComponent(new SpriteRequest("images/Test.png", new Vector(144, 72), new Vector(72, 72), true))
+    let testEventHandler = new TouchEventHandler((touches, changedTouches, timeStamp) => {
+      console.log("Touched!")
+    })
+    testEntity.AddComponent(testEventHandler)
 
-    let testEntity2  = this.CreateEntity()
-    testEntity2.AddComponent(new Transform(new Vector(0,0),0,new Vector(200,200),new Vector(0,0)))
-    testEntity2.AddComponent(new SpriteRenderer(true,1.0,0.0))
+    /** 2号组件与系统测试员 */
+    let testEntity2 = this.CreateEntity()
+    testEntity2.AddComponent(new Transform(new Vector(0, 0), 0, new Vector(200, 200), new Vector(0, 0)))
+    testEntity2.AddComponent(new SpriteRenderer(true, 1.0, 0.0))
     testEntity2.AddComponent(new SpriteProvider())
-    testEntity2.AddComponent(new SpriteRequest("images/Test.png",new Vector(0,72),new Vector(72,72),true))
+    testEntity2.AddComponent(new SpriteRequest("images/Test.png", new Vector(0, 72), new Vector(72, 72), true))
 
     //testEntity.AddComponent(new TestLogger("Hello!"))
   }
