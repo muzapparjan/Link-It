@@ -98,4 +98,18 @@ export default class Entity {
         return this.Components[i]
     return null
   }
+  /**
+   * 通过组件名查找并获取所有同名组件
+   * @param {String} componentName 要获取的组件名
+   * @returns {Array<Component>} 获取到的组件列表
+   */
+  GetAllComponentsByName(componentName) {
+    let result = new Array()
+    for (let i = 0; i < this.Components.length; i++)
+      if (this.Components[i].Name == componentName)
+        result.push(this.Components[i])
+    if (result.length > 0)
+      return result
+    return null
+  }
 }

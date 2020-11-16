@@ -107,6 +107,7 @@ export default class World {
   /**
    * 根据ID查找实体
    * @param {Number} id 要查找的实体唯一标识
+   * @returns {Entity} 要查找的实体
    */
   FindEntityByID(id) {
     return this.Entities.find(entity => entity.ID == id)
@@ -114,6 +115,7 @@ export default class World {
   /**
    * 根据需要的组件名查找实体
    * @param {String} componentName 组件名
+   * @returns {Entity} 要查找的实体
    */
   FindEntityByRequiredComponentName(componentName) {
     return this.Entities.find(entity => entity.Components.find(component => component.Name == componentName) != undefined)
