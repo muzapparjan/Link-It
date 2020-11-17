@@ -17,6 +17,13 @@ import ResourceLoader from "../coreComponents/ResourceLoader"
 import SpriteRequesterSystem from "../coreSystems/SpriteRequesterSystem"
 import SpriteRequest from "../coreComponents/SpriteRequest"
 import Vector from "../util/Vector"
+import TestName from "../logicalComponents/TestName"
+import TestLogNameSystem from "../logicalSystems/TestLogNameSystem"
+import CleanConsumedEventHandlerSystem from "../coreSystems/CleanConsumedEventHandlerSystem"
+import GestureDetectorSystem from "../coreSystems/GestureDetectorSystem"
+import EventHandler from "../coreComponents/EventHandlers"
+import { ClickGestureDetector } from "../coreComponents/Gestures"
+import BoxCollider from "../coreComponents/BoxCollider"
 
 /** 测试世界 */
 export default class TestWorld extends World {
@@ -33,11 +40,14 @@ export default class TestWorld extends World {
     this.AddSystem(new ResourceLoaderSystem())
     this.AddSystem(new SpriteRendererSystem())
     this.AddSystem(new SpriteRequesterSystem())
+    this.AddSystem(new CleanConsumedEventHandlerSystem())
+    this.AddSystem(new GestureDetectorSystem())
 
     /** 逻辑系统 */
 
     /** 测试系统 */
     this.AddSystem(new TestLoggerSystem())
+    this.AddSystem(new TestLogNameSystem())
   }
   /** 初始化默认实体 */
   InitializeEntities() {
@@ -49,12 +59,19 @@ export default class TestWorld extends World {
     resourceLoader.TexturePathList.push("images/dududu.png")
     resourceEntity.AddComponent(resourceLoader)
 
+    /** 事件持有者 */
+    let eventHandlerEntity = this.CreateEntity()
+    eventHandlerEntity.AddComponent(new EventHandler())
+
     /** 1号组件与系统测试员 */
     let testEntity = this.CreateEntity()
     testEntity.AddComponent(new Transform(new Vector(200, 200), 0, new Vector(100, 100), new Vector(0.5, 0.5)))
     testEntity.AddComponent(new SpriteRenderer(true, 1.0, 1.0))
     testEntity.AddComponent(new SpriteProvider())
     testEntity.AddComponent(new SpriteRequest("images/Test.png", new Vector(144, 72), new Vector(72, 72), true))
+    testEntity.AddComponent(new TestName("葡萄"))
+    testEntity.AddComponent(new ClickGestureDetector())
+    testEntity.AddComponent(new BoxCollider())
 
     /** 2号组件与系统测试员 */
     let testEntity2 = this.CreateEntity()
@@ -62,5 +79,8 @@ export default class TestWorld extends World {
     testEntity2.AddComponent(new SpriteRenderer(true, 1.0, 0.0))
     testEntity2.AddComponent(new SpriteProvider())
     testEntity2.AddComponent(new SpriteRequest("images/Test.png", new Vector(0, 72), new Vector(72, 72), true))
+    testEntity2.AddComponent(new TestName("香蕉"))
+    testEntity2.AddComponent(new ClickGestureDetector())
+    testEntity2.AddComponent(new BoxCollider(new Vector(0.5, 0.5)))
   }
 }

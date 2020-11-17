@@ -14,11 +14,11 @@ export default class BoxCollider extends Component {
    * @param {Vector} centerBias 中心偏移
    * @param {Vector} size 宽高
    */
-  constructor(centerBias = new Vector(), size = new Vector(100, 100)) {
+  constructor(centerBias = new Vector(), scale = new Vector(1, 1)) {
     super("BoxCollider", true)
     /** 中心偏移 */
     this.CenterBias = centerBias
-    /** 大小 */
-    this.Size = size
+    /** 缩放系数 */
+    this.Scale = scale
   }
 }

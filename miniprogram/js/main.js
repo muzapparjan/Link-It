@@ -37,68 +37,68 @@ export default class Main {
   /** 初始化输入处理器 */
   InitializeInputHandlers() {
     GameGlobal.TouchEventHandlers = new Array()
-    this.OnTouchStart = function (touches, changedTouches, timeStamp) {
+    this.OnTouchStart = function (res) {
       this.Worlds.forEach(world => {
         let eventHandlerEntity = world.FindEntityByRequiredComponentName("EventHandler")
         if (eventHandlerEntity == null || eventHandlerEntity == undefined)
           return
-        eventHandlerEntity.AddComponent(new OnTouchStartHandler(touches, changedTouches, timeStamp))
+        eventHandlerEntity.AddComponent(new OnTouchStartHandler(res.touches, res.changedTouches, res.timeStamp))
       })
     }.bind(this)
-    this.OnTouchMove = function (touches, changedTouches, timeStamp) {
+    this.OnTouchMove = function (res) {
       this.Worlds.forEach(world => {
         let eventHandlerEntity = world.FindEntityByRequiredComponentName("EventHandler")
         if (eventHandlerEntity == null || eventHandlerEntity == undefined)
           return
-        eventHandlerEntity.AddComponent(new OnTouchMoveHandler(touches, changedTouches, timeStamp))
+        eventHandlerEntity.AddComponent(new OnTouchMoveHandler(res.touches, res.changedTouches, res.timeStamp))
       })
     }.bind(this)
-    this.OnTouchEnd = function (touches, changedTouches, timeStamp) {
+    this.OnTouchEnd = function (res) {
       this.Worlds.forEach(world => {
         let eventHandlerEntity = world.FindEntityByRequiredComponentName("EventHandler")
         if (eventHandlerEntity == null || eventHandlerEntity == undefined)
           return
-        eventHandlerEntity.AddComponent(new OnTouchEndHandler(touches, changedTouches, timeStamp))
+        eventHandlerEntity.AddComponent(new OnTouchEndHandler(res.touches, res.changedTouches, res.timeStamp))
       })
     }.bind(this)
-    this.OnTouchCancel = function (touches, changedTouches, timeStamp) {
+    this.OnTouchCancel = function (res) {
       this.Worlds.forEach(world => {
         let eventHandlerEntity = world.FindEntityByRequiredComponentName("EventHandler")
         if (eventHandlerEntity == null || eventHandlerEntity == undefined)
           return
-        eventHandlerEntity.AddComponent(new OnTouchCancelHandler(touches, changedTouches, timeStamp))
+        eventHandlerEntity.AddComponent(new OnTouchCancelHandler(res.touches, res.changedTouches, res.timeStamp))
       })
     }.bind(this)
-    this.OffTouchStart = function (touches, changedTouches, timeStamp) {
+    this.OffTouchStart = function (res) {
       this.Worlds.forEach(world => {
         let eventHandlerEntity = world.FindEntityByRequiredComponentName("EventHandler")
         if (eventHandlerEntity == null || eventHandlerEntity == undefined)
           return
-        eventHandlerEntity.AddComponent(new OffTouchStartHandler(touches, changedTouches, timeStamp))
+        eventHandlerEntity.AddComponent(new OffTouchStartHandler(res.touches, res.changedTouches, res.timeStamp))
       })
     }.bind(this)
-    this.OffTouchMove = function (touches, changedTouches, timeStamp) {
+    this.OffTouchMove = function (res) {
       this.Worlds.forEach(world => {
         let eventHandlerEntity = world.FindEntityByRequiredComponentName("EventHandler")
         if (eventHandlerEntity == null || eventHandlerEntity == undefined)
           return
-        eventHandlerEntity.AddComponent(new OffTouchMoveHandler(touches, changedTouches, timeStamp))
+        eventHandlerEntity.AddComponent(new OffTouchMoveHandler(res.touches, res.changedTouches, res.timeStamp))
       })
     }.bind(this)
-    this.OffTouchEnd = function (touches, changedTouches, timeStamp) {
+    this.OffTouchEnd = function (res) {
       this.Worlds.forEach(world => {
         let eventHandlerEntity = world.FindEntityByRequiredComponentName("EventHandler")
         if (eventHandlerEntity == null || eventHandlerEntity == undefined)
           return
-        eventHandlerEntity.AddComponent(new OffTouchEndHandler(touches, changedTouches, timeStamp))
+        eventHandlerEntity.AddComponent(new OffTouchEndHandler(res.touches, res.changedTouches, res.timeStamp))
       })
     }.bind(this)
-    this.OffTouchCancel = function (touches, changedTouches, timeStamp) {
+    this.OffTouchCancel = function (res) {
       this.Worlds.forEach(world => {
         let eventHandlerEntity = world.FindEntityByRequiredComponentName("EventHandler")
         if (eventHandlerEntity == null || eventHandlerEntity == undefined)
           return
-        eventHandlerEntity.AddComponent(new OffTouchCancelHandler(touches, changedTouches, timeStamp))
+        eventHandlerEntity.AddComponent(new OffTouchCancelHandler(res.touches, res.changedTouches, res.timeStamp))
       })
     }.bind(this)
     wx.onTouchStart(this.OnTouchStart)

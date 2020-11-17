@@ -25,6 +25,15 @@ export default class Vector {
     return new Vector(A.x + B.x, A.y + B.y);
   }
   /**
+   * 两个向量相减
+   * @param {Vector} A 被减向量
+   * @param {Vector} B 减向量
+   * @returns {Vector} 返回新向量
+   */
+  static Subtract(A, B) {
+    return new Vector(A.x - B.x, A.y - B.y)
+  }
+  /**
    * 缩放向量
    * @param {Vector} V 要缩放的向量
    * @param {Number} k 缩放系数
@@ -41,6 +50,15 @@ export default class Vector {
    */
   static Dot(A, B) {
     return A.x * B.x + A.y * B.y;
+  }
+  /**
+   * 按分量缩放向量
+   * @param {Vector} V 要缩放的向量
+   * @param {Vector} K 缩放系数
+   * @returns {Vector} 返回新向量
+   */
+  static VectorScale(V, K) {
+    return new Vector(V.x * K.x, V.y * K.y)
   }
 }
 
