@@ -101,7 +101,8 @@ export default class TestWorld extends World {
     {
       syq[i]=0;
     }
-    for (let i = 0; i < 5;) {
+    syq[12]=1;
+    for (let i = 0; i <4;) {
       let a=Math.floor(Math.random()*26)
       if(syq[a]==0)
       {
@@ -137,7 +138,7 @@ export default class TestWorld extends World {
         testEntity.AddComponent(new BoxCollider())
         let x=Math.floor(a/5)
         let y=Math.floor(a%5)
-        testEntity.AddComponent(new SelectableTile(1, x, y))
+        testEntity.AddComponent(new SelectableTile(2, x, y))
       }
       
     }
@@ -158,7 +159,7 @@ export default class TestWorld extends World {
         testEntity.AddComponent(new BoxCollider())
         let x=Math.floor(a/5)
         let y=Math.floor(a%5)
-        testEntity.AddComponent(new SelectableTile(1, x, y))
+        testEntity.AddComponent(new SelectableTile(3, x, y))
       }
       
     }
@@ -178,7 +179,7 @@ export default class TestWorld extends World {
         testEntity.AddComponent(new BoxCollider())
         let x=Math.floor(a/5)
         let y=Math.floor(a%5)
-        testEntity.AddComponent(new SelectableTile(1, x, y))
+        testEntity.AddComponent(new SelectableTile(4, x, y))
       }
       
     }
@@ -198,7 +199,7 @@ export default class TestWorld extends World {
         testEntity.AddComponent(new BoxCollider())
         let x=Math.floor(a/5)
         let y=Math.floor(a%5)
-        testEntity.AddComponent(new SelectableTile(1, x, y))
+        testEntity.AddComponent(new SelectableTile(5, x, y))
       }
       
     }
@@ -218,7 +219,7 @@ export default class TestWorld extends World {
         testEntity.AddComponent(new BoxCollider())
         let x=Math.floor(a/5)
         let y=Math.floor(a%5)
-        testEntity.AddComponent(new SelectableTile(1, x, y))
+        testEntity.AddComponent(new SelectableTile(6, x, y))
       }
       
     }

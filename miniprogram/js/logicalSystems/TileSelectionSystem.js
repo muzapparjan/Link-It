@@ -49,10 +49,38 @@ export default class TileSelectionSystem extends System {
     })
     if (selectedTileEntities.length == 0) {
       selectableTile.Selected = true
+    }
+    else if (selectedTileEntities[0] == entity) {
+      selectableTile.Selected = false
     } else {
       let success = true
-      //TODO
-
+      let lastSelectedTile = selectedTileEntities[0].GetComponentByName("SelectableTile")
+      if (selectableTile.TileType != lastSelectedTile.TileType) {
+        success = false
+        selectableTile.Selected = true
+        lastSelectedTile.Selected = false
+      } else {
+        let binaryMap = new Array()
+        for (let i = 0; i < SelectableTile.ColumnCount + 2; i++) {
+          binaryMap.push(new Array())
+          for (let j = 0; j < SelectableTile.RowCount + 2; j++) {
+            binaryMap[i].push(0)
+          }
+        }
+        selectableTileEntities.forEach(selectableTileEntity => {
+          let tileInfo = selectableTileEntity.GetComponentByName("SelectableTile")
+          binaryMap[tileInfo.Column + 1][tileInfo.Row + 1] = 1
+        })
+        let start = new Vector(selectableTile.Column + 1, selectableTile.Row + 1)
+        let end = new Vector(lastSelectedTile.Column + 1, lastSelectedTile.Row + 1)
+        if (!TileSelectionSystem.MatchLine(binaryMap, start, end))
+          if (!TileSelectionSystem.MatchSingle(binaryMap, start, end))
+            if (!TileSelectionSystem.MatchDouble(binaryMap, start, end)) {
+              success = false
+              selectableTile.Selected = true
+              lastSelectedTile.Selected = false
+            }
+      }
       if (success) {
         this.CommandBuffer.push(() => {
           let world = entity.World
@@ -65,5 +93,60 @@ export default class TileSelectionSystem extends System {
     this.CommandBuffer.push(() => {
       entity.RemoveComponentByName("Clicked")
     })
+  }
+
+  static MatchLine(binaryMap, start, end) {
+    if (start.x == end.x) {
+      for (let i = Math.min(start.y, end.y) + 1; i < Math.max(start.y, end.y); i++)
+        if (binaryMap[start.x][i] == 1)
+          return false
+      return true
+    }
+    if (start.y == end.y) {
+      for (let i = Math.min(start.x, end.x) + 1; i < Math.max(start.x, end.x); i++)
+        if (binaryMap[i][start.y] == 1)
+          return false
+      return true
+    }
+    return false
+  }
+  static MatchSingle(binaryMap, start, end) {
+    let M = new Vector(start.x, end.y)
+    let N = new Vector(end.x, start.y)
+    if (TileSelectionSystem.MatchLine(binaryMap, start, M) && TileSelectionSystem.MatchLine(binaryMap, end, M) && binaryMap[M.x][M.y] == 0)
+      return true
+    if (TileSelectionSystem.MatchLine(binaryMap, start, N) && TileSelectionSystem.MatchLine(binaryMap, end, N) && binaryMap[N.x][N.y] == 0)
+      return true
+    return false
+  }
+  static MatchDouble(binaryMap, start, end) {
+    let possiblePoints = new Array()
+    for (let i = start.x + 1; i < binaryMap.length; i++) {
+      if (binaryMap[i][start.y] == 1)
+        break
+      possiblePoints.push(new Vector(i, start.y))
+    }
+    for (let i = start.x - 1; i >= 0; i--) {
+      if (binaryMap[i][start.y] == 1)
+        break
+      possiblePoints.push(new Vector(i, start.y))
+    }
+    for (let i = start.y + 1; i < binaryMap[0].length; i++) {
+      if (binaryMap[start.x][i] == 1)
+        break
+      possiblePoints.push(new Vector(start.x, i))
+    }
+    for (let i = start.y - 1; i >= 0; i--) {
+      if (binaryMap[start.x][i] == 1)
+        break
+      possiblePoints.push(new Vector(start.x, i))
+    }
+    console.log(binaryMap)
+    console.log(possiblePoints)
+    for (let i = 0; i < possiblePoints.length; i++) {
+      if (TileSelectionSystem.MatchSingle(binaryMap, possiblePoints[i], end))
+        return true
+    }
+    return false
   }
 }
