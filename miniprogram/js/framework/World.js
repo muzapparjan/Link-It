@@ -121,6 +121,20 @@ export default class World {
     return this.Entities.find(entity => entity.Components.find(component => component.Name == componentName) != undefined)
   }
   /**
+   * 根据需要的组件名查找所有包含该类组件的实体
+   * @param {String} componentName 组件名
+   * @returns {Array<Entity>} 要查找的实体列表
+   */
+  FindEntitiesByRequiredComponentName(componentName){
+    let result = new Array()
+    for (let i = 0; i < this.Entities.length; i++)
+      if (this.Entities[i].CheckComponentByName(componentName))
+        result.push(this.Entities[i])
+    if (result.length > 0)
+      return result
+    return null
+  }
+  /**
    * 接收消息并作出响应
    * @param {Entity} entity 信息的发送者
    * @param {String} keyWord 信息关键字

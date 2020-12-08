@@ -64,7 +64,7 @@ export default class GestureDetectorSystem extends System {
                 //TODO Fix the condition of click event
                 commandBuffer.push(() => {
                   entity.AddComponent(new Clicked(onTouchStartHandler.TimeStamp))
-                  console.log(entity)
+                  //console.log(entity)
                 })
               }
             });

@@ -52,6 +52,14 @@ export default class Vector {
     return A.x * B.x + A.y * B.y;
   }
   /**
+   * 复制向量并返回新向量
+   * @param {Vector} V 要复制的向量
+   * @returns {Vector} 复制后的新向量
+   */
+  static Copy(V) {
+    return new Vector(V.x, V.y)
+  }
+  /**
    * 按分量缩放向量
    * @param {Vector} V 要缩放的向量
    * @param {Vector} K 缩放系数
