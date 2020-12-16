@@ -12,12 +12,15 @@ import SpriteRendererSystem from "../coreSystems/SpriteRendererSystem"
 import SpriteRequesterSystem from "../coreSystems/SpriteRequesterSystem"
 import CleanConsumedEventHandlerSystem from "../coreSystems/CleanConsumedEventHandlerSystem"
 import GestureDetectorSystem from "../coreSystems/GestureDetectorSystem"
+import LabelRendererSystem from "../coreSystems/LabelRendererSystem"
 
 import TileLayoutManagerSystem from "../logicalSystems/TileLayoutManagerSystem"
 import TileSelectionSystem from "../logicalSystems/TileSelectionSystem"
 import StartButtonSystem from "../logicalSystems/StartButtonSystem"
 import LevelGenerationSystem from "../logicalSystems/LevelGenerationSystem"
 import RestartButtonSystem from "../logicalSystems/RestartButtonSystem"
+import UpdateLevelLabelSystem from "../logicalSystems/UpdateLevelLabelSystem"
+import UpdateScoreLabelSystem from "../logicalSystems/UpdateScoreLabelSystem"
 
 import SpriteRenderer from "../coreComponents/SpriteRenderer"
 import SpriteProvider from "../coreComponents/SpriteProvider"
@@ -58,6 +61,7 @@ export default class MainWorld extends World {
     this.AddSystem(new SpriteRequesterSystem())
     this.AddSystem(new CleanConsumedEventHandlerSystem())
     this.AddSystem(new GestureDetectorSystem())
+    this.AddSystem(new LabelRendererSystem())
 
     /** 逻辑系统 */
     this.AddSystem(new TileLayoutManagerSystem(new Vector()))
@@ -65,6 +69,8 @@ export default class MainWorld extends World {
     this.AddSystem(new StartButtonSystem())
     this.AddSystem(new LevelGenerationSystem())
     this.AddSystem(new RestartButtonSystem())
+    this.AddSystem(new UpdateLevelLabelSystem())
+    this.AddSystem(new UpdateScoreLabelSystem())
   }
   /** 初始化默认实体 */
   InitializeEntities() {
@@ -76,6 +82,8 @@ export default class MainWorld extends World {
     resourceLoader.TexturePathList.push("images/start.png")
     resourceLoader.TexturePathList.push("images/restart.png")
     resourceLoader.TexturePathList.push("images/background.png")
+    resourceLoader.TexturePathList.push("images/level.png")
+    resourceLoader.TexturePathList.push("images/score.png")
     resourceEntity.AddComponent(resourceLoader)
 
     /** 事件持有者 */
