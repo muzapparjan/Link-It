@@ -8,6 +8,7 @@ import System from "../framework/System"
 import Entity from "../framework/Entity"
 import Vector from "../util/Vector"
 import SelectableTile from "../logicalComponents/SelectableTile"
+import LevelGenerator from "../logicalComponents/LevelGenerator"
 
 /** 砖块选择系统 */
 export default class TileSelectionSystem extends System {
@@ -83,9 +84,16 @@ export default class TileSelectionSystem extends System {
       }
       if (success) {
         this.CommandBuffer.push(() => {
+          GameGlobal.Score += 1
           let world = entity.World
           world.RemoveEntity(entity)
           world.RemoveEntity(selectedTileEntities[0])
+          let tiles = world.FindEntitiesByRequiredComponentName("SelectableTile")
+          if (tiles == null) {
+            GameGlobal.Level++
+            let levelGeneratorEntity = world.CreateEntity()
+            levelGeneratorEntity.AddComponent(new LevelGenerator())
+          }
         })
         return
       }
