@@ -13,7 +13,5 @@ export default class ResourcePool extends Component {
     super("ResourcePool", true)
     /** 贴图池 */
     this.TexturePool = new Array()
-    /** 音频池 */
-    this.AudioPool = new Array()
   }
 }

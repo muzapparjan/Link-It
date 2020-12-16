@@ -10,7 +10,7 @@ import Sprite from "../util/Sprite"
 
 /** 图片请求器系统 */
 export default class SpriteRequesterSystem extends System {
-  /** 创建一个新的变换系统 */
+  /** 创建一个新的图片请求器系统 */
   constructor() {
     super("SpriteRequesterSystem", 0.0, SpriteRequesterSystem.MatchFunction, SpriteRequesterSystem.ExecutionFunction)
   }

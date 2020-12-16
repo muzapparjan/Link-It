@@ -13,7 +13,7 @@ import { Clicked } from "../coreComponents/Gestures"
 export default class GestureDetectorSystem extends System {
   /** 创建一个新的手势监测系统 */
   constructor() {
-    super("GestureDetectorSystem", 0.0, GestureDetectorSystem.MatchFunction, GestureDetectorSystem.ExecutionFunction)
+    super("GestureDetectorSystem", -50.0, GestureDetectorSystem.MatchFunction, GestureDetectorSystem.ExecutionFunction)
   }
   /**
    * 尝试匹配实体
@@ -55,7 +55,7 @@ export default class GestureDetectorSystem extends System {
               let touch = onTouchStartHandler.ChangedTouches[0]//暂时只支持单点触摸
               let touchPos = new Vector(touch.clientX, touch.clientY)
               let center = Vector.Add(transform.Position, Vector.VectorScale(transform.Scale, boxCollider.CenterBias))//暂不考虑旋转
-              center = Vector.Subtract(center,Vector.VectorScale(Vector.Subtract(transform.Pivot,new Vector(0.5,0.5)),transform.Scale))
+              center = Vector.Subtract(center, Vector.VectorScale(Vector.Subtract(transform.Pivot, new Vector(0.5, 0.5)), transform.Scale))
               let boxScale = Vector.VectorScale(transform.Scale, boxCollider.Scale)
               let halfBoxScale = Vector.Scale(boxScale, 0.5)
               let leftTopPos = Vector.Subtract(center, halfBoxScale)
@@ -65,7 +65,6 @@ export default class GestureDetectorSystem extends System {
                 //TODO Fix the condition of click event
                 commandBuffer.push(() => {
                   entity.AddComponent(new Clicked(onTouchStartHandler.TimeStamp))
-                  //console.log(entity)
                 })
               }
             });

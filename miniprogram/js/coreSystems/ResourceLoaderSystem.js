@@ -7,7 +7,6 @@
 import System from "../framework/System"
 import Entity from "../framework/Entity"
 import Texture from "../util/Texture"
-import AudioClip from "../util/AudioClip"
 
 /** 资源加载系统 */
 export default class ResourceLoaderSystem extends System {
@@ -45,14 +44,6 @@ export default class ResourceLoaderSystem extends System {
       resourcePool.TexturePool.push(new Texture(path))
     });
     resourceLoader.TexturePathList.length = 0
-
-    resourceLoader.AudioPathList.forEach(path => {
-      for (let i = 0; i < resourcePool.AudioPool.length; i++)
-        if (resourcePool.AudioPool[i].Path == path)
-          return
-      resourcePool.AudioPool.push(new AudioClip(path))
-    });
-    resourceLoader.AudioPathList.length = 0
 
     this.CommandBuffer.push(() => {
       entity.RemoveComponent(resourceLoader)

@@ -9,6 +9,8 @@ import Entity from "../framework/Entity"
 import Vector from "../util/Vector"
 import SelectableTile from "../logicalComponents/SelectableTile"
 import LevelGenerator from "../logicalComponents/LevelGenerator"
+import AudioSource from "../coreComponents/AudioSource"
+import Disposable from "../coreComponents/Disposable"
 
 /** 砖块选择系统 */
 export default class TileSelectionSystem extends System {
@@ -89,10 +91,15 @@ export default class TileSelectionSystem extends System {
           world.RemoveEntity(entity)
           world.RemoveEntity(selectedTileEntities[0])
           let tiles = world.FindEntitiesByRequiredComponentName("SelectableTile")
+          let audioFxEntity = world.CreateEntity()
+          audioFxEntity.AddComponent(new Disposable())
           if (tiles == null) {
             GameGlobal.Level++
             let levelGeneratorEntity = world.CreateEntity()
             levelGeneratorEntity.AddComponent(new LevelGenerator())
+            audioFxEntity.AddComponent(new AudioSource("audio/Win.mp3", 0, true, false, 1))
+          } else {
+            audioFxEntity.AddComponent(new AudioSource("audio/Success.mp3", 0, true, false, 1))
           }
         })
         return

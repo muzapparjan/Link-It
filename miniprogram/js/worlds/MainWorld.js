@@ -13,6 +13,8 @@ import SpriteRequesterSystem from "../coreSystems/SpriteRequesterSystem"
 import CleanConsumedEventHandlerSystem from "../coreSystems/CleanConsumedEventHandlerSystem"
 import GestureDetectorSystem from "../coreSystems/GestureDetectorSystem"
 import LabelRendererSystem from "../coreSystems/LabelRendererSystem"
+import ClearAudioSourceSystem from "../coreSystems/ClearAudioSourceSystem"
+import ClearDisposableAudioFxEntitySystem from "../coreSystems/ClearDisposableAudioFxEntitySystem"
 
 import TileLayoutManagerSystem from "../logicalSystems/TileLayoutManagerSystem"
 import TileSelectionSystem from "../logicalSystems/TileSelectionSystem"
@@ -21,6 +23,7 @@ import LevelGenerationSystem from "../logicalSystems/LevelGenerationSystem"
 import RestartButtonSystem from "../logicalSystems/RestartButtonSystem"
 import UpdateLevelLabelSystem from "../logicalSystems/UpdateLevelLabelSystem"
 import UpdateScoreLabelSystem from "../logicalSystems/UpdateScoreLabelSystem"
+import ClickAudioFxSystem from "../logicalSystems/ClickAudioFxSystem"
 
 import SpriteRenderer from "../coreComponents/SpriteRenderer"
 import SpriteProvider from "../coreComponents/SpriteProvider"
@@ -31,6 +34,7 @@ import SpriteRequest from "../coreComponents/SpriteRequest"
 import EventHandler from "../coreComponents/EventHandlers"
 import { ClickGestureDetector } from "../coreComponents/Gestures"
 import BoxCollider from "../coreComponents/BoxCollider"
+import AudioSource from "../coreComponents/AudioSource"
 
 import SelectableTile from "../logicalComponents/SelectableTile"
 import StartButton from "../logicalComponents/StartButton"
@@ -62,6 +66,8 @@ export default class MainWorld extends World {
     this.AddSystem(new CleanConsumedEventHandlerSystem())
     this.AddSystem(new GestureDetectorSystem())
     this.AddSystem(new LabelRendererSystem())
+    this.AddSystem(new ClearAudioSourceSystem())
+    this.AddSystem(new ClearDisposableAudioFxEntitySystem())
 
     /** 逻辑系统 */
     this.AddSystem(new TileLayoutManagerSystem(new Vector()))
@@ -71,6 +77,7 @@ export default class MainWorld extends World {
     this.AddSystem(new RestartButtonSystem())
     this.AddSystem(new UpdateLevelLabelSystem())
     this.AddSystem(new UpdateScoreLabelSystem())
+    this.AddSystem(new ClickAudioFxSystem())
   }
   /** 初始化默认实体 */
   InitializeEntities() {
@@ -96,6 +103,7 @@ export default class MainWorld extends World {
     bgEntity.AddComponent(new SpriteRenderer(true, 1, -1))
     bgEntity.AddComponent(new SpriteProvider())
     bgEntity.AddComponent(new SpriteRequest("images/background.png", new Vector(0, 0), new Vector(766, 1100)))
+    bgEntity.AddComponent(new AudioSource("audio/Music.mp3", 0, true, true, 1))
 
     /** 开始游戏按钮 */
     let startBtn = this.CreateEntity()
