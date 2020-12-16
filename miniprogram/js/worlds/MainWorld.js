@@ -17,6 +17,7 @@ import TileLayoutManagerSystem from "../logicalSystems/TileLayoutManagerSystem"
 import TileSelectionSystem from "../logicalSystems/TileSelectionSystem"
 import StartButtonSystem from "../logicalSystems/StartButtonSystem"
 import LevelGenerationSystem from "../logicalSystems/LevelGenerationSystem"
+import RestartButtonSystem from "../logicalSystems/RestartButtonSystem"
 
 import SpriteRenderer from "../coreComponents/SpriteRenderer"
 import SpriteProvider from "../coreComponents/SpriteProvider"
@@ -63,6 +64,7 @@ export default class MainWorld extends World {
     this.AddSystem(new TileSelectionSystem())
     this.AddSystem(new StartButtonSystem())
     this.AddSystem(new LevelGenerationSystem())
+    this.AddSystem(new RestartButtonSystem())
   }
   /** 初始化默认实体 */
   InitializeEntities() {
@@ -72,6 +74,7 @@ export default class MainWorld extends World {
     let resourceLoader = new ResourceLoader()
     resourceLoader.TexturePathList.push("images/TileSet.png")
     resourceLoader.TexturePathList.push("images/start.png")
+    resourceLoader.TexturePathList.push("images/restart.png")
     resourceLoader.TexturePathList.push("images/background.png")
     resourceEntity.AddComponent(resourceLoader)
 

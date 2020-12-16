@@ -141,8 +141,6 @@ export default class TileSelectionSystem extends System {
         break
       possiblePoints.push(new Vector(start.x, i))
     }
-    console.log(binaryMap)
-    console.log(possiblePoints)
     for (let i = 0; i < possiblePoints.length; i++) {
       if (TileSelectionSystem.MatchSingle(binaryMap, possiblePoints[i], end))
         return true

@@ -7,6 +7,14 @@
 import System from "../framework/System"
 import Entity from "../framework/Entity"
 import LevelGenerator from "../logicalComponents/LevelGenerator"
+import Vector from "../util/Vector"
+import SpriteRenderer from "../coreComponents/SpriteRenderer"
+import SpriteProvider from "../coreComponents/SpriteProvider"
+import Transform from "../coreComponents/Transform"
+import SpriteRequest from "../coreComponents/SpriteRequest"
+import { ClickGestureDetector } from "../coreComponents/Gestures"
+import BoxCollider from "../coreComponents/BoxCollider"
+import RestartButton from "../logicalComponents/RestartButton"
 
 /** 开始游戏系统 */
 export default class StartButtonSystem extends System {
@@ -32,6 +40,14 @@ export default class StartButtonSystem extends System {
       GameGlobal.Score = 0
       let levelGeneratorEntity = entity.World.CreateEntity()
       levelGeneratorEntity.AddComponent(new LevelGenerator())
+      let restartBtnEntity = entity.World.CreateEntity()
+      restartBtnEntity.AddComponent(new Transform(Vector.VectorScale(GameGlobal.ScreenSize, new Vector(0.98, 0.01)), 0, new Vector(50, 50), new Vector(1, 0)))
+      restartBtnEntity.AddComponent(new SpriteRenderer(true, 1, -1))
+      restartBtnEntity.AddComponent(new SpriteProvider())
+      restartBtnEntity.AddComponent(new SpriteRequest("images/restart.png", new Vector(0, 0), new Vector(67, 69)))
+      restartBtnEntity.AddComponent(new ClickGestureDetector())
+      restartBtnEntity.AddComponent(new BoxCollider())
+      restartBtnEntity.AddComponent(new RestartButton())
       entity.World.RemoveEntity(entity)
     })
   }

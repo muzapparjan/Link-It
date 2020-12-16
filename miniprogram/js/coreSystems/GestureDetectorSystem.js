@@ -55,6 +55,7 @@ export default class GestureDetectorSystem extends System {
               let touch = onTouchStartHandler.ChangedTouches[0]//暂时只支持单点触摸
               let touchPos = new Vector(touch.clientX, touch.clientY)
               let center = Vector.Add(transform.Position, Vector.VectorScale(transform.Scale, boxCollider.CenterBias))//暂不考虑旋转
+              center = Vector.Subtract(center,Vector.VectorScale(Vector.Subtract(transform.Pivot,new Vector(0.5,0.5)),transform.Scale))
               let boxScale = Vector.VectorScale(transform.Scale, boxCollider.Scale)
               let halfBoxScale = Vector.Scale(boxScale, 0.5)
               let leftTopPos = Vector.Subtract(center, halfBoxScale)
