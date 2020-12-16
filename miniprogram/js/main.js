@@ -1,6 +1,6 @@
 import Vector from "./util/Vector"
 import { OnTouchStartHandler, OnTouchMoveHandler, OnTouchEndHandler, OnTouchCancelHandler, OffTouchStartHandler, OffTouchMoveHandler, OffTouchEndHandler, OffTouchCancelHandler } from "./coreComponents/EventHandlers"
-import TestWorld from "./worlds/TestWorld"
+import MainWorld from "./worlds/MainWorld"
 
 /** 画布 */
 const canvas = window.canvas
@@ -11,6 +11,7 @@ GameGlobal.ScreenSize = new Vector(canvas.width, canvas.height)
 
 export default class Main {
   constructor() {
+    GameGlobal.MainInstance = this    
     this.Initialize()
     this.Startup()
   }
@@ -32,7 +33,8 @@ export default class Main {
   /** 初始化世界 */
   InitializeWorlds() {
     this.Worlds = new Array()
-    this.Worlds.push(new TestWorld())
+    //this.Worlds.push(new TestWorld())
+    this.Worlds.push(new MainWorld())
   }
   /** 初始化输入处理器 */
   InitializeInputHandlers() {
